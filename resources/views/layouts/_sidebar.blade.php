@@ -6,6 +6,18 @@
                 <li class="{{Request::segment(1) == 'dashboard' ? 'active' : ''}}">
                     <a href="/dashboard"><i class="menu-icon fa fa-laptop"></i>Dashboard </a>
                 </li>
+
+                <li class="menu-title">Jabatan & Anggota</li>
+                <!-- /.menu-title -->
+
+                <li class="{{Request()->segment(1) == 'position' ? 'active' : ''}}">
+                    <a href="/position"> <i class="menu-icon ti-shine"></i>Jabatan</a>
+                </li>
+                <li class="{{Request()->is('') ? 'active' : ''}}">
+                    <a href=""> <i class="menu-icon ti-shield"></i>Konsentrasi</a>
+                </li>
+
+
                 <li class="menu-title">Manajemen</li>
                 <!-- /.menu-title -->
                 <li class="{{Request::segment(1) == 'user' ? 'active' : ''}}">
@@ -44,15 +56,7 @@
                     <a href="/video/create"> <i class="menu-icon ti-control-play"></i>Tambah Video</a>
                 </li>
 
-                <li class="menu-title">Doa & Hadist</li>
-                <!-- /.menu-title -->
-
-                <li class="{{Request()->is('doa-hadist') ? 'active' : ''}}">
-                    <a href="/doa-hadist"> <i class="menu-icon ti-image"></i>Semua Doa & Hadist</a>
-                </li>
-                <li class="{{Request()->is('doa-hadist/create') ? 'active' : ''}}">
-                    <a href="/doa-hadist/create"> <i class="menu-icon ti-plus"></i>Tambah Doa & Hadist</a>
-                </li>
+                
 
                 <li class="menu-title">Komentar</li>
                 <!-- /.menu-title -->

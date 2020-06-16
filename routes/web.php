@@ -20,6 +20,8 @@ Route::get('/', function () {
 // ADMIN
 Route::group(['middleware' => 'admin'], function () {
     Route::get('dashboard', 'DashboardController@index');
+
+    Route::resource('position', 'PositionController');
     Route::resource('user', 'UserController');
 });
 
