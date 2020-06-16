@@ -7,7 +7,7 @@
                 <script>
                     document.write(new Date().getFullYear())
                 </script>
-                Aliim Indonesia
+                Inready Workgruop
             </div>
             <div class="col-smtext-right ">
                Samata Gowa Indonesia

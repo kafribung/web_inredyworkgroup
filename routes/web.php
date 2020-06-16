@@ -17,7 +17,11 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('dashboard', 'DashboardController@index');
+// ADMIN
+Route::group(['middleware' => 'admin'], function () {
+    Route::get('dashboard', 'DashboardController@index');
+    Route::resource('user', 'UserController');
+});
 
 Auth::routes();
 

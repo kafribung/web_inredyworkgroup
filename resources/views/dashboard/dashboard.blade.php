@@ -88,8 +88,8 @@
                     <div class="card-body ">
                         <div class="stat-widget-five ">
                             <div class="stat-content  text-center">
-                                <h1>Selamat Datang</h1>
-                                <h3>Ini adalah halaman dashboard Aliim Indonesia</h3>
+                                <h1>Selamat Datang {{$user->role == 1 ? 'Admin' : 'Bendahara'}} {{$user->name}}</h1>
+                                <h3>Ini adalah halaman dashboard  organisasi tercinta Inready Workgroup</h3>
                                 <p>Berikan yang terbaik untuk agama bangsa dan negara</p>
                             </div>
                         </div>
