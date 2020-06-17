@@ -9,6 +9,18 @@ use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
+use Illuminate\Http\Request;
+use Illuminate\Auth\Events\Registered;
+
+// Import Class Str
+use Illuminate\Support\Str;
+
+// Import Mail Facades
+use Illuminate\Support\Facades\Mail;
+
+// Import Class Mauk
+use App\Mail\MailVerification;
+
 class RegisterController extends Controller
 {
     /*
@@ -41,6 +53,23 @@ class RegisterController extends Controller
         $this->middleware('guest');
     }
 
+    public function register(Request $request)
+    {
+        $this->validator($request->all())->validate();
+
+        event(new Registered($user = $this->create($request->all())));
+
+        // Di nonaktifkan agar user tidak login
+        // $this->guard()->login($user);
+
+        if ($response = $this->registered($request, $user)) {
+            return $response;
+        }
+
+        return redirect('/login')->with('msg', 'silahkan cek email di ' . $request->email);
+    }
+
+
     /**
      * Get a validator for an incoming registration request.
      *
@@ -64,10 +93,30 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'token' => Str::random(30),
         ]);
+
+        Mail::to($user->email)->send(new MailVerification($user));
+    }
+
+    public function verification($token, $id)
+    {
+        $user = User::findOrFail($id);
+
+        if ($user->token != $token) {
+            return redirect('login')->with('msg', 'Terjadi kesalahan validasi akun');
+        }
+
+        // Ubah status user
+        $user->status = 1;
+        $user->save();
+
+        $this->guard()->login($user);
+
+        return redirect(RouteServiceProvider::HOME);
     }
 }

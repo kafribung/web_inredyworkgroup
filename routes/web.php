@@ -22,8 +22,13 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('dashboard', 'DashboardController@index');
 
     Route::resource('position', 'PositionController');
+    Route::resource('connenction', 'ConnenctionController');
+
     Route::resource('user', 'UserController');
 });
+
+// Email Verivication
+Route::get('/verification/{token}/{id}', 'Auth\RegisterController@verification');
 
 Auth::routes();
 

@@ -20,11 +20,16 @@ class CreateUsersTable extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('address')->nullable();
             $table->string('hp')->unique()->nullable();
             $table->string('job')->nullable();
+            $table->string('address_birth')->nullable();
+            $table->date('date_birth')->nullable();
+            $table->text('address')->nullable();
+
             $table->tinyInteger('role')->unsigned()->default(0);
             $table->tinyInteger('status')->unsigned()->default(0);
+
+            $table->string('token')->unique();
 
             $table->bigInteger('position_id')->unsigned()->nullable();
             $table->bigInteger('concentration_id')->unsigned()->nullable();
