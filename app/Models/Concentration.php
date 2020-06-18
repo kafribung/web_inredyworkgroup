@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class Concentration extends Model
 {
-    //
+    protected $fillable = ['concentration'];
 }

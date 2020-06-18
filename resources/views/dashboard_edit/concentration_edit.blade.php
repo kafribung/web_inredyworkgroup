@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Create Jabatan | INR Workgroup')
+@section('title', 'Edit Konsentrasi | INR Workgroup')
 @section('content')
 
 <!-- Content -->
@@ -16,21 +16,22 @@
                 <div class="card-body ">
                     <div class="card">
                         <div class="card-header">
-                            <strong class="card-title">Tambah Data Jabatan</strong>
+                            <strong class="card-title">Edit Data Konsentrasi</strong>
                         </div>
                         <div class="card-body">
-                            <form action="/position" method="POST">
+                            <form action="/concentration/{{$concentration->id}}" method="POST">
                                 @csrf
+                                @method('PUT')
                                 <div class="form-group">
-                                    <label for="position" class="control-label mb-1">Jabatan</label>
-                                    <input id="position" name="position" type="text" class="form-control @error('position') is-invalid @enderror"  autofocus required autocomplete="off" value="{{old('position')}}">
+                                    <label for="concentration" class="control-label mb-1">Konsentrasi</label>
+                                    <input id="concentration" name="concentration" type="text" class="form-control @error('concentration') is-invalid @enderror"  autofocus required autocomplete="off" value="{{old('concentration')? old('concentration') : $concentration->concentration}}">
 
-                                    @error('position')
+                                    @error('concentration')
                                         <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
-                                    <button type="submit" class="btn btn-md btn-info btn-block">Tambahkan</button>
+                                    <button type="submit" class="btn btn-md btn-warning btn-block">Editkan</button>
                                 </div>
 
                             </form>

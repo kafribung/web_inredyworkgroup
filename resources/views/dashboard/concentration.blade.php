@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Jabatan |  INR Workgroup')
+@section('title', 'Konsentrasi |  INR Workgroup')
 @section('content')
 
 <!-- Content -->
@@ -16,15 +16,15 @@
                 <div class="card-body ">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="box-title text-center">Jabatan</h4>
-                            <a href="/position/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
+                            <h4 class="box-title text-center">Konsentrasi</h4>
+                            <a href="/concentration/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
                         </div>
                         <div class="table-stats">
                             <table class="table table-hover">
                                 <thead>
                                     <tr>
                                         <th>No</th>
-                                        <th>Jabatan</th>
+                                        <th>Konsentrasi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -32,32 +32,29 @@
                                     @php
                                         $angkaAwal =  1
                                     @endphp
-
-                                    @forelse ($positions as $position)
-                                        
+                                    @forelse ($concentrations as $concentration)
                                     
-                                        
                                     <tr>
                                         <td>{{$angkaAwal}}</td>
-                                        <td>{{$position->position}}</td>
+                                        <td>{{$concentration->concentration}}</td>
                                         <td>
-                                            <a href="/position/{{$position->id}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
+                                            <a href="/concentration/{{$concentration->id}}/edit" class="btn btn-warning btn-sm"><i class="fa fa-edit"></i></a>
 
-                                            <form action="/position/{{$position->id}}" method="POST" class="d-inline-flex">
+                                            <form action="/concentration/{{$concentration->id}}" method="POST" class="d-inline-flex">
                                                 @csrf
                                                 @method('DELETE')
 
-                                                <button type="submit" onclick="return confirm('Hapus Data {{$position->position}}?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                <button type="submit" onclick="return confirm('Hapus Data {{$concentration->concentration}}?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
                                     @empty
-                                        <td>Data Jabatan Belum Ada</td>
+                                        <td>Data Konsentrasi Belum Ada</td>
                                     @php
                                         $angkaAwal++
                                     @endphp
                                         
-                                    @endforelse
+                                     @endforelse
                                 </tbody>
                             </table>
                         </div> <!-- /.table-stats -->

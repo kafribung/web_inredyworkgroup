@@ -13,8 +13,8 @@
                 <li class="{{Request()->segment(1) == 'position' ? 'active' : ''}}">
                     <a href="/position"> <i class="menu-icon ti-shine"></i>Jabatan</a>
                 </li>
-                <li class="{{Request()->is('') ? 'active' : ''}}">
-                    <a href=""> <i class="menu-icon ti-shield"></i>Konsentrasi</a>
+                <li class="{{Request()->segment(1) == 'concentration' ? 'active' : ''}}">
+                    <a href="/concentration"> <i class="menu-icon ti-shield"></i>Konsentrasi</a>
                 </li>
 
 

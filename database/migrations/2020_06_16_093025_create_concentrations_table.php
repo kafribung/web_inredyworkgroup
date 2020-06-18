@@ -15,7 +15,7 @@ class CreateConcentrationsTable extends Migration
     {
         Schema::create('concentrations', function (Blueprint $table) {
             $table->id();
-            $table->string('consentration');
+            $table->string('concentration');
             $table->timestamps();
         });
     }
