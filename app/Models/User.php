@@ -32,4 +32,9 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    // Mutator
+    public function getImgAttribute($value){
+        return url('img_users', $value);
+    }
 }
