@@ -28,6 +28,10 @@ class PositionController extends Controller
     {
         $data = $request->all();
 
+        if (Position::count() >= 4) {
+            return redirect('/position')->with('msg', 'Data Jabatan MAX 4');
+        }
+
         Position::create($data);
 
         return redirect('/position')->with('msg', 'Data Jabatan Berhasil di Tambahkan');

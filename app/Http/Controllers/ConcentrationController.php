@@ -29,6 +29,10 @@ class ConcentrationController extends Controller
     {
         $data = $request->all();
 
+        if (Concentration::count() >= 4) {
+            return redirect('/concentration')->with('msg', 'Data Konsentrasi MAX 4');
+        }
+
         Concentration::create($data);
 
         return redirect('/concentration')->with('msg', 'Data Konsentrasi Berhasil Di Tambahkan');

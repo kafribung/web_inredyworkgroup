@@ -21,7 +21,7 @@
 
             @yield('content')
 
-            <div class="clearfix "></div>
+            <div class="clearfix"></div>
 
             @include('layouts._footer')
         </div>

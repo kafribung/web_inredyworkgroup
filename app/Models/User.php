@@ -10,6 +10,8 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    protected $touches = ['concentration','position'];
+
     //
     protected $guarded = [
         'created_at', 'updated_at'
@@ -33,8 +35,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
+    // Relation One to One (Concentration)
+    public function concentration() 
+    {
+        return $this->belongsTo('App\Models\Concentration');
+    }
+
+    // Relation one to Many (position)
+    public function position() 
+    {
+        return $this->belongsTo('App\Models\Position');
+    }
+    
     // Mutator
-    public function getImgAttribute($value){
+    public function getImgAttribute($value)
+    {
         return url('img_users', $value);
     }
 }

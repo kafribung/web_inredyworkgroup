@@ -35,8 +35,6 @@
 
                                     @forelse ($positions as $position)
                                         
-                                    
-                                        
                                     <tr>
                                         <td>{{$angkaAwal}}</td>
                                         <td>{{$position->position}}</td>
@@ -51,11 +49,12 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @empty
-                                        <td>Data Jabatan Belum Ada</td>
                                     @php
                                         $angkaAwal++
                                     @endphp
+                                    @empty
+                                        <td>Data Jabatan Belum Ada</td>
+                                  
                                         
                                     @endforelse
                                 </tbody>

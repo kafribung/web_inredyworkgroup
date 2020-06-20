@@ -23,11 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('img')->default('default_user.png');
             $table->string('hp')->unique()->nullable();
             $table->string('job')->nullable();
-            $table->string('address_birth')->nullable();
             $table->date('date_birth')->nullable();
             $table->text('address')->nullable();
-            $table->text('districts')->nullable();
-
             $table->tinyInteger('role')->unsigned()->default(0);
             $table->tinyInteger('status')->unsigned()->default(0);
 

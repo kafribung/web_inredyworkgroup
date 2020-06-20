@@ -48,11 +48,12 @@
                                             </form>
                                         </td>
                                     </tr>
-                                    @empty
-                                        <td>Data Konsentrasi Belum Ada</td>
                                     @php
                                         $angkaAwal++
                                     @endphp
+                                    @empty
+                                        <td>Data Konsentrasi Belum Ada</td>
+                                  
                                         
                                      @endforelse
                                 </tbody>

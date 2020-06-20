@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
 // ADMIN
@@ -25,6 +25,10 @@ Route::group(['middleware' => 'admin'], function () {
     Route::resource('concentration', 'ConcentrationController');
 
     Route::resource('user', 'UserController');
+    Route::get('/user/{nir}/active', 'UserController@active');
+    Route::get('/user/{nir}/panding', 'UserController@panding');
+
+
 });
 
 // Email Verivication

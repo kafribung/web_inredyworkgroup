@@ -24,7 +24,7 @@ class ConcentrationsRequest extends FormRequest
     public function rules()
     {
         return [
-            'concentration' => ['required', 'string', 'min:5', 'max:30'],
+            'concentration' => ['required', 'string', 'min:3', 'max:30'],
         ];
     }
 }
