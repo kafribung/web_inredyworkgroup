@@ -26,7 +26,6 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Foto</th>
-                                        <th>NIR</th>
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Status</th>
@@ -35,7 +34,7 @@
                                         <th>HP</th>
                                         <th>Job</th>
                                         <th>Jabatan</th>
-                                        {{-- <th>Konsentrasi</th> --}}
+                                        <th>Konsentrasi</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -60,8 +59,7 @@
                                         <td>{{$user->hp}}</td>
                                         <td>{{$user->job}}</td>
                                         <td>{{$user->position_id != null ? $user->position->position : '' }}</td>
-
-                                        {{-- <td>{{$user->concentration->concentration}}</td> --}}
+                                        <td>{{$user->concentration_id !== null ? $user->concentration->concentration : ''}}</td>
                             
                                         <td>
                                             @if ($user->status == 2 || $user->status == 1)
