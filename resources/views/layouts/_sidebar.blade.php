@@ -33,14 +33,11 @@
                 <li class="menu-title">Artikel</li>
 
                 <!-- /.menu-title -->
-                <li class=" {{Request()->segment(1) == 'kategori-artikel' ? 'active' : ''}} ">
-                    <a href="/kategori-artikel"> <i class="menu-icon ti-infinite"></i>Kategori Artikel</a>
+                <li class=" {{Request()->is('article') ? 'active' : ''}}">
+                    <a href="/article"> <i class="menu-icon ti-book"></i>Semua Artikel</a>
                 </li>
-                <li class=" {{Request()->is('artikel') ? 'active' : ''}}">
-                    <a href="/artikel"> <i class="menu-icon ti-book"></i>Semua Artikel</a>
-                </li>
-                <li class=" {{Request()->is('artikel/create') ? 'active' : ''}}">
-                    <a href="/artikel/create"> <i class="menu-icon ti-pencil-alt"></i>Tambah Artikel</a>
+                <li class=" {{Request()->is('article/create') ? 'active' : ''}}">
+                    <a href="/article/create"> <i class="menu-icon ti-pencil-alt"></i>Tambah Artikel</a>
                 </li>
 
                 <li class="menu-title">Video</li>

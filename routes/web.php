@@ -36,6 +36,12 @@ Route::group(['middleware' => 'admin'], function () {
     // ADMIN
     Route::resource('admin', 'AdminController');
 
+    // Artikel
+    Route::resource('article', 'ArticlelController');
+
+    // Karya
+    Route::resource('creation', 'CreationController');
+
 });
 
 // Email Verivication
