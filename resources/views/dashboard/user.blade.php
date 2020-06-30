@@ -26,6 +26,7 @@
                                     <tr>
                                         <th>No</th>
                                         <th>Foto</th>
+                                        <th>NIR</th>
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>Status</th>
@@ -53,7 +54,7 @@
                                         <td>{{$user->nir}}</td>
                                         <td>{{$user->name}}</td>
                                         <td>{{$user->email}}</td>
-                                        <td>{{$user->status == 2 ? 'Active' : ($user->status == 1 ? 'Panding' : 'Not Active')}}</td>
+                                        <td>{{$user->status == 2 && $user->nir != null ? 'Active' : ($user->status == 1 && $user->nir == null   ? 'Panding' : 'Not Active')}}</td>
                                         <td>{{$user->date_birth}}</td>
                                         <td>{{$user->address}}</td>
                                         <td>{{$user->hp}}</td>
@@ -62,10 +63,13 @@
                                         <td>{{$user->concentration_id !== null ? $user->concentration->concentration : ''}}</td>
                             
                                         <td>
-                                            @if ($user->status == 2 || $user->status == 1)
-                                                <a href="/user/{{$user->nir}}/active" class="btn btn-success btn-sm {{$user->status == 2 ? 'd-none' : ''}}"><i class="fa fa-power-off"></i></a>
-                                                <a href="/user/{{$user->nir}}/panding" class="btn btn-secondary btn-sm {{$user->status == 1 ? 'd-none' : ''}}"><i class="fa fa-power-off"></i></a>
+                                            @if ($user->status == 2 && $user->nir != null)
+                                                <a href="/user/{{$user->nir}}/panding" class="btn btn-secondary btn-sm"><i class="fa fa-power-off"></i></a>
                                             @endif
+                                            @if ($user->status == 1 && $user->nir != null)
+                                                <a href="/user/{{$user->nir}}/active" class="btn btn-success btn-sm"><i class="fa fa-power-off"></i></a>
+                                            @endif
+
 
                                             <a href="/user/{{$user->id}}/edit" class="btn btn-warning btn-sm "><i class="fa fa-edit"></i></a>
                             

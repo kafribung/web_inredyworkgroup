@@ -4,81 +4,81 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+// Impoer Class CreationRequest
+use App\Http\Requests\CreationRequest;
+
+// Import DB Cration
+use App\Models\Creation;
+
+// Import DB Concentration
+use App\Models\Concentration;
+
+// Import Class Str
+use Illuminate\Support\Str;
+
+
 class CreationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // READ
     public function index()
     {
-        //
+        $creations = Creation::with('user', 'concentration')->latest()->get();
+
+        return view('dashboard.creation', compact('creations'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    // CREATE
     public function create()
     {
-        //
+        $concentrations = Concentration::latest()->get();
+
+        return view('dashboard_create.creation_create', compact('concentrations'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
+    // STORE
+    public function store(CreationRequest $request)
     {
-        //
+        $data = $request->all();
+
+        $data['slug'] = Str::slug($request->title);
+
+        $request->user()->creations()->create($data);
+
+        return redirect('/creation')->with('msg', 'Data Karya Berhasil di Tambahkan');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // SHOW
     public function show($id)
     {
-        //
+        return abort('404');
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    // EDIT
+    public function edit($slug)
     {
-        //
+        $creation       = Creation::where('slug', $slug)->first();
+        $concentrations = Concentration::latest()->get();
+
+        return view('dashboard_edit.creation_edit', compact('creation', 'concentrations'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, $id)
+    // UPDATE
+    public function update(CreationRequest $request, $id)
     {
-        //
+        $data = $request->all();
+
+        $data['slug'] = Str::slug($request->title);
+
+        Creation::findOrFail($id)->update($data);
+
+        return redirect('/creation')->with('msg', 'Data Karya Berhasil di Perbaruhi');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    // DESTROY
     public function destroy($id)
     {
-        //
+        Creation::destroy($id);
+
+        return redirect('/creation')->with('msg', 'Data Karya Berhasil di Hapus');
     }
 }

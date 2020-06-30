@@ -47,12 +47,19 @@ class User extends Authenticatable
         return $this->belongsTo('App\Models\Position');
     }
 
-     // Relation many to one (position)
-     public function articles() 
-     {
-         return $this->hasMany('App\Models\article');
-     }
+     // Relation one to many (position)
+    public function articles() 
+    {
+        return $this->hasMany('App\Models\article');
+    }
     
+    // Relation one to many(Creation)
+    public function creations()
+    {
+        return $this->hasMany('App\Models\Creation');
+    }
+
+
     // Mutator
     public function getImgAttribute($value)
     {

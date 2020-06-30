@@ -40,20 +40,16 @@
                     <a href="/article/create"> <i class="menu-icon ti-pencil-alt"></i>Tambah Artikel</a>
                 </li>
 
-                <li class="menu-title">Video</li>
+                <li class="menu-title">Karya</li>
 
                 <!-- /.menu-title -->
-                <li class=" {{Request()->segment(1) == 'kategori-video' ? 'active' : ''}} ">
-                    <a href="/kategori-video"> <i class="menu-icon ti-infinite"></i>Kategori Video</a>
+                <li class=" {{Request()->is('creation') ? 'active' : ''}} ">
+                    <a href="/creation"><i class="menu-icon ti-shine"></i>Semua Karya</a>
                 </li>
-                <li class=" {{Request()->is('video') ? 'active' : ''}} ">
-                    <a href="/video"> <i class="menu-icon ti-video-clapper"></i>Semua Video</a>
-                </li>
-                <li class=" {{Request()->is('video/create') ? 'active' : ''}} ">
-                    <a href="/video/create"> <i class="menu-icon ti-control-play"></i>Tambah Video</a>
+                <li class=" {{Request()->is('creation/create') ? 'active' : ''}} ">
+                    <a href="/creation/create"> <i class="menu-icon ti-control-play"></i>Tambah Karya</a>
                 </li>
 
-                
 
                 <li class="menu-title">Komentar</li>
                 <!-- /.menu-title -->

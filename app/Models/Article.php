@@ -9,7 +9,7 @@ class Article extends Model
     protected $touches = ['user'];
     protected $guarded = ['created_at', 'updated_at'];
 
-     // Relation one to Many (position)
+     // Relation many to one (position)
      public function user() 
      {
          return $this->belongsTo('App\Models\user');

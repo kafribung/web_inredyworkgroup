@@ -15,7 +15,20 @@ class CreateCreationsTable extends Migration
     {
         Schema::create('creations', function (Blueprint $table) {
             $table->id();
+            $table->string('title')->unique();
+            $table->text('description');
+            $table->string('video');
+            $table->string('slug');
+            $table->string('team');
+            $table->tinyInteger('status')->default(0)->unsigned();
+
+            $table->bigInteger('concentration_id')->unsigned();
+            $table->bigInteger('user_id')->unsigned();
+
             $table->timestamps();
+
+            $table->foreign('concentration_id')->references('id')->on('concentrations')->onDelete('cascade');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 
