@@ -1,5 +1,5 @@
 @extends('layouts.master')
-@section('title', 'Admin | INR Workgroup')
+@section('title', 'Inventaris | INR Workgroup')
 @section('content')
 
 <!-- Content -->
@@ -16,7 +16,9 @@
                 <div class="card-body">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="box-title text-center">Admin</h4>
+                            <h4 class="box-title text-center">Data Inventaris</h4>
+                            <a href="/inventory/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i></a>
+
                         </div>
 
                         <div class="table-stats">
@@ -26,8 +28,11 @@
                                         <th>No</th>
                                         <th>Foto</th>
                                         <th>Nama</th>
-                                        <th>Email</th>
-                                        <th>Status</th>
+                                        <th>Jumlah</th>
+                                        <th>Sumbangsi</th>
+                                        <th>Kondisi Barang</th>
+                                        <th>Jenis Kategori</th>
+                                        <th>Deskripri</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -35,26 +40,29 @@
                                     @php
                                         $angkaAwal =  1
                                     @endphp
-                                    @forelse ($admins as $admin)
+                                    @forelse ($inventories as $inventory)
                                     <tr>
                                         <td>{{$angkaAwal}}</td>
                                         <td class="avatar">
                                             <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="{{url($admin->img)}}" alt=""></a>
+                                                <a href="#"><img class="rounded-circle" src="{{url($inventory->img)}}" alt="erorr"></a>
                                             </div>
                                         </td>
-                                        <td>{{$admin->name}}</td>
-                                        <td>{{$admin->email}}</td>
-                                        <td>{{$admin->status == 2 ? 'Active' : ($admin->status == 1 ? 'Panding' : 'Not Active')}}</td>
+                                        <td>{{$inventory->title}}</td>
+                                        <td>{{$inventory->total}}</td>
+                                        <td>{{$inventory->owner}}</td>
+                                        <td>{{$inventory->condition}}</td>
+                                        <td>{{$inventory->category}}</td>
+                                        <td>{!! Str::limit($inventory->description, 80)  !!}</td>
                             
                                         <td>
-                                            <a href="/admin/{{$admin->id}}/edit" class="btn btn-warning btn-sm "><i class="fa fa-edit"></i></a>
+                                            <a href="/inventory/{{$inventory->slug}}/edit" class="btn btn-warning btn-sm "><i class="fa fa-edit"></i></a>
                             
-                                            <form action="/admin/{{$admin->id}}" method="POST" class="d-inline-flex">
+                                            <form action="/inventory/{{$inventory->id}}" method="POST" class="d-inline-flex">
                                                 @csrf
                                                 @method('DELETE')
                             
-                                                <button type="submit" onclick="return confirm('Hapus Data {{$admin->name}}?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                <button type="submit" onclick="return confirm('Hapus Data {{$inventory->title}}?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                                             </form>
                                         </td>
                                     </tr>
@@ -62,7 +70,7 @@
                                         $angkaAwal++
                                     @endphp
                                     @empty
-                                        <td class="text-center">Data Admin Masih Kosong</td>
+                                        <td class="text-center">Data Inventaris Masih Kosong</td>
                                     @endforelse
                             
                                 </tbody>

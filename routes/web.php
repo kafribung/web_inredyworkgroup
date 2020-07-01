@@ -42,6 +42,9 @@ Route::group(['middleware' => 'admin'], function () {
     // Karya
     Route::resource('creation', 'CreationController');
 
+    // Inventaris
+    Route::resource('inventory', 'InventoryController');
+
 });
 
 // Email Verivication

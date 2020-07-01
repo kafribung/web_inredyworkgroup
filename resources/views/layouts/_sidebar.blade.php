@@ -51,11 +51,11 @@
                 </li>
 
 
-                <li class="menu-title">Komentar</li>
+                <li class="menu-title">Inventaris</li>
                 <!-- /.menu-title -->
 
-                <li>
-                    <a href="#"> <i class="menu-icon ti-comments"></i>Lihat Komentar</a>
+                <li class="{{Request::segment(1) == 'inventory' ? 'active' : ''}}">
+                    <a href="/inventory"> <i class="menu-icon ti-comments"></i>Data Inventaris</a>
                 </li>
 
                 <li class="menu-title">Pertanyaan</li>
