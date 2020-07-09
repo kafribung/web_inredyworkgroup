@@ -43,10 +43,8 @@
                                     @forelse ($inventories as $inventory)
                                     <tr>
                                         <td>{{$angkaAwal}}</td>
-                                        <td class="avatar">
-                                            <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="{{url($inventory->img)}}" alt="erorr"></a>
-                                            </div>
+                                        <td>
+                                                <img src="{{url($inventory->img)}}" alt="erorr" title="Gambar {{ $inventory->title }}" width="80" height="80">
                                         </td>
                                         <td>{{$inventory->title}}</td>
                                         <td>{{$inventory->total}}</td>

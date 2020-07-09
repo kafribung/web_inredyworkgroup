@@ -23,7 +23,7 @@
                                 <h4 class="card-title mb-3">{{$creation->title}}</h4>
                             </div>
                             <div class="card-header alt bg-dark">
-                                <iframe class="align-self-center p-2" style="width:240px; height:200px;" alt="creation" src="{{$creation->video}}" frameborder="0"></iframe>
+                                <iframe class="align-self-center p-2" style="width:100%;" alt="creation" src="{{$creation->video}}" frameborder="0"></iframe>
                             </div>
                             <div class="card-body">
                                 {!! Str::limit($creation->description, 100) !!}
