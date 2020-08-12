@@ -13,7 +13,6 @@ class PositionController extends Controller
     public function index()
     {
         $positions = Position::latest()->get();
-
         return view('dashboard.position', compact('positions'));
     }
 
@@ -31,9 +30,7 @@ class PositionController extends Controller
         if (Position::count() >= 4) {
             return redirect('/position')->with('msg', 'Data Jabatan MAX 4');
         }
-
         Position::create($data);
-
         return redirect('/position')->with('msg', 'Data Jabatan Berhasil di Tambahkan');
     }
 
@@ -47,7 +44,6 @@ class PositionController extends Controller
     public function edit($id)
     {
         $position = Position::findOrFail($id);
-
         return view('dashboard_edit.position_edit', compact('position'));
     }
 
@@ -55,9 +51,7 @@ class PositionController extends Controller
     public function update(PositionRequest $request, $id)
     {
         $data = $request->all();
-
         Position::findOrFail($id)->update($data);
-
         return redirect('/position')->with('msg', 'Data Jabatan Berhasil di Edit');
     }
 
@@ -65,7 +59,6 @@ class PositionController extends Controller
     public function destroy($id)
     {
         Position::destroy($id);
-
         return redirect('/position')->with('msg', 'Data Jabatan Berhasil di Hapus');
     }
 }

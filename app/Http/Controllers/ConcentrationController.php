@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 // Import Class Request Concentration
 use App\Http\Requests\ConcentrationsRequest;
-
 // Import DB Concentration
 use App\Models\Concentration;
 
@@ -14,7 +13,6 @@ class ConcentrationController extends Controller
     public function index()
     {
         $concentrations = Concentration::latest()->get();
-
         return view('dashboard.concentration', compact('concentrations'));
     }
 
@@ -28,13 +26,10 @@ class ConcentrationController extends Controller
     public function store(ConcentrationsRequest $request)
     {
         $data = $request->all();
-
         if (Concentration::count() >= 4) {
             return redirect('/concentration')->with('msg', 'Data Konsentrasi MAX 4');
         }
-
         Concentration::create($data);
-
         return redirect('/concentration')->with('msg', 'Data Konsentrasi Berhasil Di Tambahkan');
     }
 
@@ -48,7 +43,6 @@ class ConcentrationController extends Controller
     public function edit($id)
     {
         $concentration = Concentration::findOrFail($id);
-
         return view('dashboard_edit.concentration_edit', compact('concentration'));
     }
 
@@ -56,9 +50,7 @@ class ConcentrationController extends Controller
     public function update(ConcentrationsRequest $request, $id)
     {
         $data = $request->all();
-
         Concentration::findOrFail($id)->update($data);
-
         return redirect('/concentration')->with('msg', 'Data Konsentrasi Berhasil Di Edit');
     }
 
@@ -66,7 +58,6 @@ class ConcentrationController extends Controller
     public function destroy($id)
     {
         Concentration::destroy($id);
-
         return redirect('/concentration')->with('msg', 'Data Konsentrasi Berhasil Di Hapus');
     }
 }

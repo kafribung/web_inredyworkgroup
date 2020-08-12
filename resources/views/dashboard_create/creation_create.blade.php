@@ -8,7 +8,7 @@
     <div class="animated fadeIn">
 
         @if (session('msg'))
-            <p class="alert alert-info">{{session('msg')}}</p>
+        <p class="alert alert-info">{{session('msg')}}</p>
         @endif
 
         <div class="row">
@@ -23,51 +23,61 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="title" class="control-label mb-1">Judul</label>
-                                    <input id="title" name="title" type="text" class="form-control @error('title') is-invalid @enderror" autofocus  autocomplete="off" value="{{old('title')}}">
+                                    <input id="title" name="title" type="text"
+                                        class="form-control @error('title') is-invalid @enderror" autofocus
+                                        autocomplete="off" value="{{old('title')}}">
 
                                     @error('title')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="video" class="control-label mb-1">Link Video</label>
-                                    <input id="video" name="video" type="url" class="form-control @error('video') is-invalid @enderror" autocomplete="off" value="{{old('video')}}">
+                                    <input id="video" name="video" type="url"
+                                        class="form-control @error('video') is-invalid @enderror" autocomplete="off"
+                                        value="{{old('video')}}">
 
                                     @if ($errors->has('video'))
-                                        <p class="alert alert-danger">{{$errors->first('video')}}</p>
+                                    <p class="alert alert-danger">{{$errors->first('video')}}</p>
                                     @endif
                                 </div>
 
                                 <div class="form-group">
                                     <label for="team" class="control-label mb-1">Team</label>
-                                    <input id="team" name="team" type="text" class="form-control @error('team') is-invalid @enderror" autocomplete="off" value="{{old('team')}}">
+                                    <input id="team" name="team" type="text"
+                                        class="form-control @error('team') is-invalid @enderror" autocomplete="off"
+                                        value="{{old('team')}}">
 
                                     @if ($errors->has('team'))
-                                        <p class="alert alert-danger">{{$errors->first('team')}}</p>
+                                    <p class="alert alert-danger">{{$errors->first('team')}}</p>
                                     @endif
                                 </div>
 
                                 <div class="form-group">
-                                    <label for="concentration_id" class="control-label mb-1">Kategori Konsentrasi</label>
-                                    <select id="concentration_id" name="concentration_id" class="form-control @error('concentration_id') is-invalid @enderror">
-                                            <option value="" selected disabled>~ Pilih Konsentrasi ~</option>
+                                    <label for="concentration_id" class="control-label mb-1">Kategori
+                                        Konsentrasi</label>
+                                    <select id="concentration_id" name="concentration_id"
+                                        class="form-control @error('concentration_id') is-invalid @enderror">
+                                        <option value="" selected disabled>~ Pilih Konsentrasi ~</option>
                                         @foreach ($concentrations as $concentration)
-                                            <option value="{{$concentration->id}}">{{$concentration->concentration}}</option>
+                                        <option value="{{$concentration->id}}">{{$concentration->concentration}}
+                                        </option>
                                         @endforeach
                                     </select>
 
                                     @if ($errors->has('concentration_id'))
-                                        <p class="alert alert-danger">{{$errors->first('concentration_id')}}</p>
+                                    <p class="alert alert-danger">{{$errors->first('concentration_id')}}</p>
                                     @endif
                                 </div>
 
                                 <div class="form-group">
                                     <label for="description" class="control-label mb-1">Deskripsi</label>
-                                    <textarea id="description" name="description" class="form-control ckeditor @error('description') is-invalid @enderror" >{{old('description')}}</textarea>
+                                    <textarea id="description" name="description"
+                                        class="form-control ckeditor @error('description') is-invalid @enderror">{{old('description')}}</textarea>
 
                                     @error('description')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
@@ -101,4 +111,3 @@
 </script>
 @endpush
 @endsection
-

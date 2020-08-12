@@ -8,7 +8,7 @@
     <div class="animated fadeIn">
 
         @if (session('msg'))
-            <p class="alert alert-info">{{session('msg')}}</p>
+        <p class="alert alert-info">{{session('msg')}}</p>
         @endif
 
         <div class="row">
@@ -23,28 +23,25 @@
                                 @csrf
                                 <div class="form-group">
                                     <label for="concentration" class="control-label mb-1">Konsentrasi</label>
-                                    <input id="concentration" name="concentration" type="text" class="form-control @error('concentration') is-invalid @enderror"  autofocus required autocomplete="off" value="{{old('concentration')}}">
+                                    <input id="concentration" name="concentration" type="text"
+                                        class="form-control @error('concentration') is-invalid @enderror" autofocus
+                                        required autocomplete="off" value="{{old('concentration')}}">
 
                                     @error('concentration')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
-
-                                    <button type="submit" class="btn btn-md btn-info btn-block">Tambahkan</button>
-                                </div>
-
+                                <button type="submit" class="btn btn-md btn-info btn-block">Tambahkan</button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- /#add-category -->
     </div>
-    <!-- .animated -->
+    <!-- /#add-category -->
+</div>
+<!-- .animated -->
 </div>
 <!-- /.content -->
-    
 @endsection
-
