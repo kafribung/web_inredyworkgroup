@@ -101,7 +101,7 @@ class RegisterController extends Controller
             'token' => Str::random(30),
         ]);
 
-        // Mail::to($user->email)->send(new MailVerification($user));
+        Mail::to($user->email)->send(new MailVerification($user));
     }
 
     public function verification($token, $id)

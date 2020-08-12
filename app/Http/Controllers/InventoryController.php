@@ -35,7 +35,7 @@ class InventoryController extends Controller
 
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() . '.' . $img->getClientOriginalExtension();
+            $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_inventories'), $name);
 
             $data['img'] = $name;
@@ -69,7 +69,7 @@ class InventoryController extends Controller
 
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() . '.' . $img->getClientOriginalExtension();
+            $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_inventories'), $name);
 
             $data['img'] = $name;
@@ -88,6 +88,5 @@ class InventoryController extends Controller
         Inventory::destroy($id);
 
         return redirect('/inventory')->with('msg', 'Data Inventaris Berhasil di Hapus');
-
     }
 }

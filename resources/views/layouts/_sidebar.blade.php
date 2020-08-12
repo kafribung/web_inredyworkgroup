@@ -1,5 +1,5 @@
-  <!-- Left Panel -->
-  <aside id="left-panel" class="left-panel">
+<!-- Left Panel -->
+<aside id="left-panel" class="left-panel">
     <nav class="navbar navbar-expand-sm navbar-default">
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
@@ -9,7 +9,6 @@
 
                 <li class="menu-title">Jabatan & Anggota</li>
                 <!-- /.menu-title -->
-
                 <li class="{{Request()->segment(1) == 'position' ? 'active' : ''}}">
                     <a href="/position"> <i class="menu-icon ti-shine"></i>Jabatan</a>
                 </li>
@@ -41,7 +40,6 @@
                 </li>
 
                 <li class="menu-title">Karya</li>
-
                 <!-- /.menu-title -->
                 <li class=" {{Request()->is('creation') ? 'active' : ''}} ">
                     <a href="/creation"><i class="menu-icon ti-shine"></i>Semua Karya</a>
@@ -53,14 +51,12 @@
 
                 <li class="menu-title">Inventaris</li>
                 <!-- /.menu-title -->
-
                 <li class="{{Request::segment(1) == 'inventory' ? 'active' : ''}}">
                     <a href="/inventory"> <i class="menu-icon ti-comments"></i>Data Inventaris</a>
                 </li>
 
                 <li class="menu-title">Pertanyaan</li>
                 <!-- /.menu-title -->
-
                 <li>
                     <a href="#"> <i class="menu-icon ti-comment-alt"></i>Lihat Pertanyaan</a>
                 </li>
@@ -79,7 +75,6 @@
 
                 <li class="menu-title">Tentang</li>
                 <!-- /.menu-title -->
-
                 <li>
                     <a href="#"> <i class="menu-icon ti-facebook"></i>Media Sosial</a>
                 </li>

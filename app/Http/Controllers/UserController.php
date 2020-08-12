@@ -27,8 +27,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::orderBy('id', 'DESC')->where('role', 0)->get();
-
-
         return view('dashboard.user', compact('users'));
     }
 
@@ -37,7 +35,6 @@ class UserController extends Controller
     {
         $positions      = Position::latest()->get();
         $concentrations = Concentration::latest()->get();
-
         return view('dashboard_create.user_create', compact('positions', 'concentrations'));
     }
 
@@ -46,9 +43,8 @@ class UserController extends Controller
     {
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() . '.' . $img->getClientOriginalExtension();
+            $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_users'), $name);
-
             $data_img = $name;
         }
 
@@ -60,13 +56,13 @@ class UserController extends Controller
             'nir'       => $request->nir,
             'name'      => $request->name,
             'email'     => $request->email,
-            'date_birth'=> $request->date_birth,
+            'date_birth' => $request->date_birth,
             'address'   => $request->address,
             'hp'        => $request->hp,
             'password'  => $data_pass,
             'job'       => $request->job,
-            'position_id'  => $request->position,
-            'concentration_id' =>$request->concentration,
+            'position_id'      => $request->position,
+            'concentration_id' => $request->concentration,
             'status'    => 1,
             'token'     =>  $data_token
         ]);
@@ -77,7 +73,7 @@ class UserController extends Controller
     // SHOW
     public function show($id)
     {
-        return abort('404'); 
+        return abort('404');
     }
 
     // EDIT
@@ -87,18 +83,18 @@ class UserController extends Controller
         $positions      = Position::latest()->get();
         $concentrations = Concentration::latest()->get();
 
-        return view('dashboard_edit.user_edit', compact('user' ,'positions', 'concentrations'));
+        return view('dashboard_edit.user_edit', compact('user', 'positions', 'concentrations'));
     }
 
     // UPDATE
     public function update(Request $request, $id)
     {
         $request->validate([
-            'img'       => ['required','mimes:png,jpg,jpeg'],
+            'img'       => ['required', 'mimes:png,jpg,jpeg'],
             'nir'       => ['required', 'string', 'min:10', 'max:15'],
             'name'      => ['required', 'string', 'min:3', 'max:25'],
             'email'     => ['required', 'email'],
-            'date_birth'=> ['required', 'date'],
+            'date_birth' => ['required', 'date'],
             'address'   => ['required'],
             'hp'        => ['required', 'string'],
             'password'  => ['required', 'string', 'min:6'],
@@ -109,7 +105,7 @@ class UserController extends Controller
 
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() . '.' . $img->getClientOriginalExtension();
+            $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_users'), $name);
 
             $data_img = $name;
@@ -123,13 +119,13 @@ class UserController extends Controller
             'nir'       => $request->nir,
             'name'      => $request->name,
             'email'     => $request->email,
-            'date_birth'=> $request->date_birth,
+            'date_birth' => $request->date_birth,
             'address'   => $request->address,
             'hp'        => $request->hp,
             'password'  => $data_pass,
             'job'       => $request->job,
             'position_id'  => $request->position,
-            'concentration_id' =>$request->concentration,
+            'concentration_id' => $request->concentration,
             'token'     =>  $data_token
         ]);
 
@@ -146,26 +142,24 @@ class UserController extends Controller
     }
 
     // ACTIVE
-    public function active($nir) {
+    public function active($nir)
+    {
         $user = User::where('nir', $nir)->first();
-        
+
         User::where('nir', $nir)->update([
             'status' => 2
         ]);
 
-        return redirect('/user')->with('msg', 'Data ' . $user->nir. ' di Aktifkan');
+        return redirect('/user')->with('msg', 'Data ' . $user->nir . ' di Aktifkan');
     }
 
     // PANDING
-    public function panding($nir) {
+    public function panding($nir)
+    {
         $user = User::where('nir', $nir)->first();
-        
         User::where('nir', $nir)->update([
             'status' => 1
         ]);
-
-        return redirect('/user')->with('msg', 'Data ' . $user->nir. ' di Panding');
+        return redirect('/user')->with('msg', 'Data ' . $user->nir . ' di Panding');
     }
-
-    
 }
