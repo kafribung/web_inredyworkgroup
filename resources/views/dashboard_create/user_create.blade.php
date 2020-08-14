@@ -111,7 +111,7 @@
                                     <label for="job" class="control-label mb-1">Pekerjaan</label>
                                     <textarea id="job" name="job"
                                         class="form-control @error('job') is-invalid @enderror" required
-                                        autocomplete="off" {{old('job')}}>
+                                        autocomplete="off"> {{old('job')}}
                                     </textarea>
 
                                     @error('job')

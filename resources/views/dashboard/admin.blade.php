@@ -8,7 +8,7 @@
     <div class="animated fadeIn">
 
         @if (session('msg'))
-            <p class="alert alert-info">{{session('msg')}}</p>
+        <p class="alert alert-info">{{session('msg')}}</p>
         @endif
 
         <div class="row">
@@ -33,54 +33,47 @@
                                 </thead>
                                 <tbody>
                                     @php
-                                        $angkaAwal =  1
+                                    $angkaAwal = 1
                                     @endphp
                                     @forelse ($admins as $admin)
                                     <tr>
-                                        <td>{{$angkaAwal}}</td>
-                                        <td class="avatar">
-                                            <div class="round-img">
-                                                <a href="#"><img class="rounded-circle" src="{{url($admin->img)}}" alt=""></a>
-                                            </div>
+                                        <td>{{$angkaAwal++}}</td>
+                                        <td>
+                                            <img class="rounded-circle" src="{{url($admin->takeImg)}}" alt="Error"
+                                                title="Gambar {{ $admin->name }}">
                                         </td>
                                         <td>{{$admin->name}}</td>
                                         <td>{{$admin->email}}</td>
-                                        <td>{{$admin->status == 2 ? 'Active' : ($admin->status == 1 ? 'Panding' : 'Not Active')}}</td>
-                            
                                         <td>
-                                            <a href="/admin/{{$admin->id}}/edit" class="btn btn-warning btn-sm "><i class="fa fa-edit"></i></a>
-                            
+                                            {{$admin->status == 2 ? 'Active' : ($admin->status == 1 ? 'Panding' : 'Not Active')}}
+                                        </td>
+                                        <td>
+                                            <a href="/admin/{{$admin->id}}/edit" class="btn btn-warning btn-sm m-1"><i
+                                                    class="fa fa-edit"></i>
+                                            </a>
                                             <form action="/admin/{{$admin->id}}" method="POST" class="d-inline-flex">
                                                 @csrf
                                                 @method('DELETE')
-                            
-                                                <button type="submit" onclick="return confirm('Hapus Data {{$admin->name}}?')" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                                                <button type="submit"
+                                                    onclick="return confirm('Hapus Data {{$admin->name}}?')"
+                                                    class="btn btn-danger btn-sm m-1"><i class="fa fa-trash"></i>
+                                                </button>
                                             </form>
                                         </td>
                                     </tr>
-                                    @php
-                                        $angkaAwal++
-                                    @endphp
                                     @empty
-                                        <td class="text-center">Data Admin Masih Kosong</td>
+                                    <td class="text-center">Data Admin Masih Kosong</td>
                                     @endforelse
-                            
                                 </tbody>
                             </table>
-                           
                         </div>
-                      
                     </div>
                 </div>
             </div>
         </div>
-
         <!-- /#add-category -->
     </div>
     <!-- .animated -->
 </div>
 <!-- /.content -->
-
-
-    
 @endsection

@@ -29,7 +29,7 @@ class UserRequest extends FormRequest
             'name'      => ['required', 'string', 'min:3', 'max:25'],
             'email'     => ['required', 'email', 'unique:users'],
             'date_birth' => ['required', 'date'],
-            'address'   => ['required'],
+            'address'   => ['required', 'min:5'],
             'hp'        => ['required', 'string'],
             'password'  => ['required', 'string', 'min:6'],
             'job'       => ['required', 'string', 'min:5', 'max:255'],

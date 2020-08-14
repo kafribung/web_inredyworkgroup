@@ -90,6 +90,9 @@
                                     @endforelse
                                 </tbody>
                             </table>
+                            <div class="float-right">
+                                {{ $users->links('pagination::simple-tailwind') }}
+                            </div>
                         </div>
                     </div>
                 </div>

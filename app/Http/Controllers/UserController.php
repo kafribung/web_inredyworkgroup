@@ -20,7 +20,7 @@ class UserController extends Controller
     //READ
     public function index()
     {
-        $users = User::orderBy('id', 'DESC')->where('role', 0)->get();
+        $users = User::orderBy('id', 'DESC')->where('role', 0)->paginate(2);
         return view('dashboard.user', compact('users'));
     }
 

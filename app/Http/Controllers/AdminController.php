@@ -3,15 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-use App\Http\Requests\TreasurerRequest;
-
 // Import Class Hash
 use Illuminate\Support\Facades\Hash;
-
-// Import Class STR
-use Illuminate\Support\Str;
-
 // Import DB User
 use App\Models\User;
 
@@ -47,7 +40,6 @@ class AdminController extends Controller
     public function edit($id)
     {
         $admin =  User::findOrFail($id);
-
         return view('dashboard_edit.admin_edit', compact('admin'));
     }
 
@@ -63,24 +55,23 @@ class AdminController extends Controller
 
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() .'.'. $img->getClientOriginalExtension();
+            $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_user'), $name);
-
             $data['img'] = $name;
         }
 
         $data['password'] = Hash::make($request->password);
-
         User::findOrFail($id)->update($data);
-
         return redirect('/admin')->with('msg', 'Data Admin Berhasil Di Perbaruhi');
     }
 
     // DELETE
     public function destroy($id)
     {
+        if (User::where('role', 1)->count() == 1) {
+            return redirect('/admin')->with('msg', 'Data Admin Min 1');
+        }
         User::destroy($id);
-
         return redirect('/admin')->with('msg', 'Data Admin Berhasil Di Hapus');
     }
 }
