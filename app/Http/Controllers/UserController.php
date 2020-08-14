@@ -7,19 +7,13 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UserRequest;
 
 // Import Class Hash
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\{Hash, File};
 
 // Import Class STR
 use Illuminate\Support\Str;
 
-// Import DB User
-use App\Models\User;
-
-// Import DB Position
-use App\Models\Position;
-
-// Import DB Concentration
-use App\Models\Concentration;
+// Import DB User, Position, Concentration
+use App\Models\{User, Position, Concentration};
 
 class UserController extends Controller
 {
@@ -42,18 +36,17 @@ class UserController extends Controller
     public function store(UserRequest $request)
     {
         $data = request()->all();
-        dd($data);
         if ($request->has('img')) {
             $img = $request->file('img');
             $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_users'), $name);
-            $data_img = $name;
+            $data['img'] = $name;
         }
-        $data_pass  = Hash::make($request->password);
-        $data_token = Str::random(30);
+        $data['password']  = Hash::make($request->password);
+        $data['token']     = Str::random(30);
+        $data['status']    = 1;
 
-        User::create();
-
+        User::create($data);
         return redirect('/user')->with('msg', 'Data User Berhasil Di Tambhakan');
     }
 
@@ -64,9 +57,9 @@ class UserController extends Controller
     }
 
     // EDIT
-    public function edit($id)
+    public function edit($email)
     {
-        $user = User::findOrFail($id);
+        $user = User::where('email', $email)->first();
         $positions      = Position::latest()->get();
         $concentrations = Concentration::latest()->get();
 
@@ -76,7 +69,7 @@ class UserController extends Controller
     // UPDATE
     public function update(Request $request, $id)
     {
-        $request->validate([
+        $data = $request->validate([
             'img'       => ['required', 'mimes:png,jpg,jpeg'],
             'nir'       => ['required', 'string', 'min:10', 'max:15'],
             'name'      => ['required', 'string', 'min:3', 'max:25'],
@@ -86,45 +79,31 @@ class UserController extends Controller
             'hp'        => ['required', 'string'],
             'password'  => ['required', 'string', 'min:6'],
             'job'       => ['required', 'string', 'min:5', 'max:255'],
-            'position'  => ['required', 'string'],
-            'concentration' => ['required', 'string']
+            'position_id'  => ['required', 'string'],
+            'concentration_id' => ['required', 'string']
         ]);
-
-        if ($request->has('img')) {
-            $img = $request->file('img');
+        $user = User::findOrFail($id);
+        if ($img = $request->file('img')) {
             $name = time() . '.' . $img->getClientOriginalExtension();
+            if ($user->img != 'default_user.png') {
+                File::delete('img_users/' . $user->img);
+            }
             $img->move(public_path('img_users'), $name);
-
-            $data_img = $name;
+            $data['img'] = $name;
         }
-
-        $data_pass  = Hash::make($request->password);
-        $data_token = Str::random(30);
-
-        User::findOrFail($id)->update([
-            'img'       => $data_img,
-            'nir'       => $request->nir,
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'date_birth' => $request->date_birth,
-            'address'   => $request->address,
-            'hp'        => $request->hp,
-            'password'  => $data_pass,
-            'job'       => $request->job,
-            'position_id'  => $request->position,
-            'concentration_id' => $request->concentration,
-            'token'     =>  $data_token
-        ]);
-
+        $data['password']  = Hash::make($request->password);
+        $user->update($data);
         return redirect('/user')->with('msg', 'Data User Berhasil Di Perbaruhi');
     }
 
     // DELETE
     public function destroy($id)
     {
-        dd('hard');
+        $user = User::findOrFail($id);
+        if ($user->img != 'default_user.png') {
+            File::delete('img_users/' . $user->img);
+        }
         User::destroy($id);
-
         return redirect('/user')->with('msg', 'Data User Berhasil di Hapus');
     }
 
@@ -132,11 +111,9 @@ class UserController extends Controller
     public function active($nir)
     {
         $user = User::where('nir', $nir)->first();
-
         User::where('nir', $nir)->update([
             'status' => 2
         ]);
-
         return redirect('/user')->with('msg', 'Data ' . $user->nir . ' di Aktifkan');
     }
 

@@ -3,17 +3,14 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests\TreasurerRequest;
-
 // Import Class Hash
-use Illuminate\Support\Facades\Hash;
-
+use Illuminate\Support\Facades\{Hash, File};
 // Import Class STR
 use Illuminate\Support\Str;
-
 // Import DB User
 use App\Models\User;
+
 
 class TreasurerController extends Controller
 {
@@ -21,7 +18,6 @@ class TreasurerController extends Controller
     public function index()
     {
         $treasurers = User::where('role', 2)->latest()->get();
-
         return view('dashboard.treasurer', compact('treasurers'));
     }
 
@@ -37,24 +33,18 @@ class TreasurerController extends Controller
         if (User::where('role', 2)->count() >= 1) {
             return redirect('/treasurer')->with('msg', 'Data Bendahara Max 1');
         }
-
         $data = $request->all();
-
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() .'.'. $img->getClientOriginalExtension();
-            $img->move(public_path('img_user'), $name);
-
+            $name = time() . '.' . $img->getClientOriginalExtension();
+            $img->move(public_path('img_users'), $name);
             $data['img'] = $name;
         }
-
         $data['password'] = Hash::make($request->password);
         $data['status']   = 2;
         $data['role']     = 2;
         $data['token']    = Str::random(30);
-
         User::create($data);
-
         return redirect('/treasurer')->with('msg', 'Data Bendahara Berhasil Di Tambhakan');
     }
 
@@ -68,7 +58,6 @@ class TreasurerController extends Controller
     public function edit($id)
     {
         $treasurer = User::findOrFail($id);
-
         return view('dashboard_edit.treasurer_edit', compact('treasurer'));
     }
 
@@ -81,28 +70,29 @@ class TreasurerController extends Controller
             'email'     => ['required', 'email'],
             'password'  => ['required', 'string', 'min:6']
         ]);
-
-        
+        $treasurer = User::findOrFail($id);
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() .'.'. $img->getClientOriginalExtension();
-            $img->move(public_path('img_user'), $name);
-
+            $name = time() . '.' . $img->getClientOriginalExtension();
+            if ($treasurer->img != 'default_user.png') {
+                File::delete('img_users/' . $treasurer->img);
+            }
+            $img->move(public_path('img_users'), $name);
             $data['img'] = $name;
         }
-
         $data['password'] = Hash::make($request->password);
-
-        User::findOrFail($id)->update($data);
-
+        $treasurer->update($data);
         return redirect('/treasurer')->with('msg', 'Data Bendahara Berhasil Di Perbaruhi');
     }
 
     // DELETE
     public function destroy($id)
     {
+        $treasurer = User::findOrFail($id);
+        if ($treasurer->img != 'default_user.png') {
+            File::delete('img_users/' . $treasurer->img);
+        }
         User::destroy($id);
-
         return redirect('/treasurer')->with('msg', 'Data Bendahara Berhasil Di Hapus');
     }
 }

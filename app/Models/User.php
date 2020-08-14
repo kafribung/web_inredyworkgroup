@@ -10,7 +10,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
-    protected $touches = ['concentration','position'];
+    protected $touches = ['concentration', 'position'];
 
     //
     protected $guarded = [
@@ -36,23 +36,23 @@ class User extends Authenticatable
     ];
 
     // Relation One to One (Concentration)
-    public function concentration() 
+    public function concentration()
     {
         return $this->belongsTo('App\Models\Concentration');
     }
 
     // Relation one to one (position)
-    public function position() 
+    public function position()
     {
         return $this->belongsTo('App\Models\Position');
     }
 
-     // Relation one to many (position)
-    public function articles() 
+    // Relation one to many (position)
+    public function articles()
     {
         return $this->hasMany('App\Models\article');
     }
-    
+
     // Relation one to many(Creation)
     public function creations()
     {
@@ -65,10 +65,9 @@ class User extends Authenticatable
         return $this->hasMany('App\Models\Inventory');
     }
 
-
     // Mutator
-    public function getImgAttribute($value)
+    public function getTakeImgAttribute()
     {
-        return url('img_users', $value);
+        return url('img_users', $this->img);
     }
 }
