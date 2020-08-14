@@ -56,16 +56,12 @@ class RegisterController extends Controller
     public function register(Request $request)
     {
         $this->validator($request->all())->validate();
-
         event(new Registered($user = $this->create($request->all())));
-
         // Di nonaktifkan agar user tidak login
         // $this->guard()->login($user);
-
         if ($response = $this->registered($request, $user)) {
             return $response;
         }
-
         return redirect('/login')->with('msg', 'silahkan cek email di ' . $request->email);
     }
 

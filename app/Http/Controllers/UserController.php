@@ -41,31 +41,18 @@ class UserController extends Controller
     //CREATE
     public function store(UserRequest $request)
     {
+        $data = request()->all();
+        dd($data);
         if ($request->has('img')) {
             $img = $request->file('img');
             $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_users'), $name);
             $data_img = $name;
         }
-
         $data_pass  = Hash::make($request->password);
         $data_token = Str::random(30);
 
-        User::create([
-            'img'       => $data_img,
-            'nir'       => $request->nir,
-            'name'      => $request->name,
-            'email'     => $request->email,
-            'date_birth' => $request->date_birth,
-            'address'   => $request->address,
-            'hp'        => $request->hp,
-            'password'  => $data_pass,
-            'job'       => $request->job,
-            'position_id'      => $request->position,
-            'concentration_id' => $request->concentration,
-            'status'    => 1,
-            'token'     =>  $data_token
-        ]);
+        User::create();
 
         return redirect('/user')->with('msg', 'Data User Berhasil Di Tambhakan');
     }
