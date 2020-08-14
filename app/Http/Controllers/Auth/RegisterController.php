@@ -101,7 +101,7 @@ class RegisterController extends Controller
             'token' => Str::random(30),
         ]);
 
-        Mail::to($user->email)->send(new MailVerification($user));
+        // Mail::to($user->email)->send(new MailVerification($user));
     }
 
     public function verification($token, $id)
@@ -111,13 +111,10 @@ class RegisterController extends Controller
         if ($user->token != $token) {
             return redirect('login')->with('msg', 'Terjadi kesalahan validasi akun');
         }
-
         // Ubah status user
         $user->status = 1;
         $user->save();
-
         $this->guard()->login($user);
-
         return redirect(RouteServiceProvider::HOME);
     }
 }
