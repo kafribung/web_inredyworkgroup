@@ -18,8 +18,7 @@ class ArticlelController extends Controller
     // READ
     public function index()
     {
-        $articles = Article::latest()->get(); 
-       
+        $articles = Article::latest()->get();
         return view('dashboard.article', compact('articles'));
     }
 
@@ -36,7 +35,7 @@ class ArticlelController extends Controller
 
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() . '.' . $img->getClientOriginalExtension();
+            $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_articles'), $name);
 
             $data['img'] = $name;
@@ -74,7 +73,7 @@ class ArticlelController extends Controller
 
         if ($request->has('img')) {
             $img = $request->file('img');
-            $name= time() . '.' . $img->getClientOriginalExtension();
+            $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_articles'), $name);
 
             $data['img'] = $name;

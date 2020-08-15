@@ -22,7 +22,10 @@ class UserController extends Controller
     {
         $seacrh = urldecode(request('search'));
         if ($seacrh) {
-            $users = User::orderBy('id', 'DESC')->where('role', 0)->where('name', 'like', '%' . $seacrh . '%')->paginate(20);
+            $users = User::orderBy('id', 'DESC')->where([
+                ['role', 0],
+                ['name', 'like', '%' . $seacrh . '%']
+            ])->paginate(20);
         } else  $users = User::orderBy('id', 'DESC')->where('role', 0)->paginate(20);
 
         return view('dashboard.user', compact('users'));
@@ -66,7 +69,6 @@ class UserController extends Controller
         $user = User::where('email', $email)->first();
         $positions      = Position::latest()->get();
         $concentrations = Concentration::latest()->get();
-
         return view('dashboard_edit.user_edit', compact('user', 'positions', 'concentrations'));
     }
 
