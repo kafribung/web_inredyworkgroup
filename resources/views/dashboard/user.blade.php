@@ -3,6 +3,23 @@
 @section('content')
 
 <!-- Content -->
+<div class="breadcrumbs">
+    <div class="breadcrumbs-inner">
+        <div class="row m-0">
+            <div class="col-sm-12">
+                <div class="page-header float-right">
+                    <div class="form-inline p-2">
+                        <form class="search-form" action="/user" method="GET">
+                            <input class="form-control mr-sm-2" name="search" type="text" placeholder="Search Name ..."
+                                aria-label="Search">
+                            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 <div class="content">
     <!-- Animated -->
     <div class="animated fadeIn">
@@ -17,10 +34,9 @@
                     <div class="card">
                         <div class="card-header">
                             <h4 class="box-title text-center">User / Anggota</h4>
-                            <a href="/user/create" class="btn btn-primary btn-sm float-right"><i
-                                    class="fa fa-plus"></i></a>
+                            <a href="/user/create" class="btn btn-primary btn-sm float-right"><i class="fa fa-plus"></i>
+                            </a>
                         </div>
-
                         <div class="table-stats">
                             <table class="table table-hover">
                                 <thead>

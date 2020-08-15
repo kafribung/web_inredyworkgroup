@@ -20,7 +20,11 @@ class UserController extends Controller
     //READ
     public function index()
     {
-        $users = User::orderBy('id', 'DESC')->where('role', 0)->paginate(2);
+        $seacrh = urldecode(request('search'));
+        if ($seacrh) {
+            $users = User::orderBy('id', 'DESC')->where('role', 0)->where('name', 'like', '%' . $seacrh . '%')->paginate(20);
+        } else  $users = User::orderBy('id', 'DESC')->where('role', 0)->paginate(20);
+
         return view('dashboard.user', compact('users'));
     }
 
