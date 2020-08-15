@@ -36,8 +36,11 @@
                     <section class="card">
                         <div class="card-header">
                             <h6 class="badge  badge-success">
-                                {{$creation->concentration->concentration}}</h6>
+                                {{$creation->concentration->concentration}}
+                            </h6>
                             <h4 class="card-title mb-3">{{$creation->title}}</h4>
+                            <hr>
+                            <small>Created : <b>{{ $creation->team }}</b> </small>
                         </div>
                         <div class="card-header alt bg-dark">
                             <iframe class="align-self-center p-2" style="width:100%;" alt="creation"
