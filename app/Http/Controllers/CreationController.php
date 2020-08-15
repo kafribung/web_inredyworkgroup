@@ -2,19 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-
 // Impoer Class CreationRequest
-use App\Http\Requests\CreationRequest;
-
-// Import DB Cration
-use App\Models\Creation;
-
-// Import DB Concentration
-use App\Models\Concentration;
-
-// Import Class Str
 use Illuminate\Support\Str;
+// Import DB Cration Concentration
+use Illuminate\Http\Request;
+// Import Class Str
+use App\Http\Requests\CreationRequest;
+use App\Models\{Creation, Concentration};
 
 
 class CreationController extends Controller
@@ -22,8 +16,11 @@ class CreationController extends Controller
     // READ
     public function index()
     {
-        $creations = Creation::with('user', 'concentration')->latest()->get();
-
+        $search = urldecode(request('search'));
+        if ($search)
+            $creations = Creation::with('user', 'concentration')->latest()->where('title', 'like', '%' . $search . '%')->paginate(6);
+        else
+            $creations = Creation::with('user', 'concentration')->latest()->paginate(6);
         return view('dashboard.creation', compact('creations'));
     }
 
@@ -31,7 +28,6 @@ class CreationController extends Controller
     public function create()
     {
         $concentrations = Concentration::latest()->get();
-
         return view('dashboard_create.creation_create', compact('concentrations'));
     }
 
@@ -39,11 +35,9 @@ class CreationController extends Controller
     public function store(CreationRequest $request)
     {
         $data = $request->all();
-
         $data['slug'] = Str::slug($request->title);
-
+        $data['status'] = 1;
         $request->user()->creations()->create($data);
-
         return redirect('/creation')->with('msg', 'Data Karya Berhasil di Tambahkan');
     }
 
@@ -58,19 +52,25 @@ class CreationController extends Controller
     {
         $creation       = Creation::where('slug', $slug)->first();
         $concentrations = Concentration::latest()->get();
-
         return view('dashboard_edit.creation_edit', compact('creation', 'concentrations'));
     }
 
     // UPDATE
-    public function update(CreationRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $data = $request->all();
-
+        $data = $request->validate([
+            'title' => ['required', 'string', 'min:3', 'max:200'],
+            'video' => ['required', 'active_url'],
+            'team'  => ['required', 'string', 'min:3', 'max:200'],
+            'concentration_id' => ['required', 'integer'],
+            'description'      => ['required', 'min:5'],
+        ]);
+        $creation =  Creation::findOrFail($id);
+        if ($creation->title != null) {
+            $data['title'] = $request->title . '-' . time();
+        }
         $data['slug'] = Str::slug($request->title);
-
-        Creation::findOrFail($id)->update($data);
-
+        $creation->update($data);
         return redirect('/creation')->with('msg', 'Data Karya Berhasil di Perbaruhi');
     }
 
@@ -78,7 +78,24 @@ class CreationController extends Controller
     public function destroy($id)
     {
         Creation::destroy($id);
-
         return redirect('/creation')->with('msg', 'Data Karya Berhasil di Hapus');
+    }
+
+    // Active
+    public function active(Creation $creation)
+    {
+        Creation::findOrFail($creation->id)->update([
+            'status' => 1,
+        ]);
+        return redirect()->back()->with('msg', 'Data Karya Berhasil diapprove');
+    }
+
+    // Panding
+    public function panding(Creation $creation)
+    {
+        $creation  = Creation::findOrFail($creation->id);
+        $creation->status = 0;
+        $creation->save();
+        return redirect()->back()->with('msg', 'Data Karya Berhasil diunapprove');
     }
 }

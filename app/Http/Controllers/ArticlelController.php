@@ -3,13 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 // Import Class Str
 use Illuminate\Support\Str;
-
 // Import Class ArticleRequest
 use App\Http\Requests\ArticleRequest;
-
 // Import DB Article
 use App\Models\Article;
 use Illuminate\Support\Facades\File;
@@ -80,10 +77,10 @@ class ArticlelController extends Controller
             $img->move(public_path('img_articles'), $name);
             $data['img'] = $name;
         }
-        if ($article->slug != null) {
-            $data['slug'] = Str::slug($request->title . '-' . time());
-        } else
-            $data['slug'] = Str::slug($request->title);
+        if ($article->title != null) {
+            $data['title'] = $request->title . '-' . time();
+        }
+        $data['slug'] = Str::slug($request->title);
         $article->update($data);
         return redirect('/article')->with('msg', 'Data Artikel Berhasil di update');
     }

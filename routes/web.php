@@ -32,6 +32,8 @@ Route::group(['middleware' => 'admin'], function () {
 
     // Karya
     Route::resource('creation', 'CreationController');
+    Route::get('/creation/{creation:slug}/active', 'CreationController@active');
+    Route::get('/creation/{creation:slug}/panding', 'CreationController@panding');
 
     // Inventaris
     Route::resource('inventory', 'InventoryController');

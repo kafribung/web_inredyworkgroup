@@ -28,7 +28,7 @@ class CreationRequest extends FormRequest
             'video' => ['required', 'active_url'],
             'team'  => ['required', 'string', 'min:3', 'max:200'],
             'concentration_id' => ['required', 'integer'],
-            'description'      => ['required'],
+            'description'      => ['required', 'min:5'],
         ];
     }
 }

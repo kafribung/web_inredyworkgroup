@@ -42,7 +42,8 @@
 
                 <li class="menu-title">Karya</li>
                 <!-- /.menu-title -->
-                <li class=" {{Request()->is('creation') ? 'active' : ''}} ">
+                <li
+                    class=" {{Request()->is('creation') ? 'active' : ''}} {{Request()->is('creation/*/edit') ? 'active' : ''}} ">
                     <a href="/creation"><i class="menu-icon ti-shine"></i>Semua Karya</a>
                 </li>
                 <li class=" {{Request()->is('creation/create') ? 'active' : ''}} ">
