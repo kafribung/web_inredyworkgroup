@@ -27,6 +27,8 @@ Route::group(['middleware' => 'admin'], function () {
 
     // Artikel
     Route::resource('article', 'ArticlelController');
+    Route::get('/article/{article:slug}/active', 'ArticlelController@active');
+    Route::get('/article/{article:slug}/panding', 'ArticlelController@panding');
 
     // Karya
     Route::resource('creation', 'CreationController');

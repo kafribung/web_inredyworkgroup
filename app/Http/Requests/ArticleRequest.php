@@ -26,7 +26,7 @@ class ArticleRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'min:5', 'max:200', 'unique:articles'],
             'img'   => ['required', 'mimes:png,jpg,jpeg'],
-            'description' => ['required']
+            'description' => ['required', 'min:5']
         ];
     }
 }

@@ -9,15 +9,15 @@ class Article extends Model
     protected $touches = ['user'];
     protected $guarded = ['created_at', 'updated_at'];
 
-     // Relation many to one (position)
-     public function user() 
-     {
-         return $this->belongsTo('App\Models\user');
-     }
+    // Relation many to one (position)
+    public function user()
+    {
+        return $this->belongsTo('App\Models\user');
+    }
 
     // Mutator
-    public function getImgAttribute($value)
+    public function gettakeImgAttribute()
     {
-        return url('img_articles', $value);
+        return url('img_articles', $this->img);
     }
 }

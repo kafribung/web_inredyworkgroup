@@ -32,7 +32,8 @@
                 <li class="menu-title">Artikel</li>
 
                 <!-- /.menu-title -->
-                <li class=" {{Request()->is('article') ? 'active' : ''}}">
+                <li
+                    class=" {{Request()->is('article') ? 'active' : ''}} {{Request()->is('article/*/edit') ? 'active' : ''}}">
                     <a href="/article"> <i class="menu-icon ti-book"></i>Semua Artikel</a>
                 </li>
                 <li class=" {{Request()->is('article/create') ? 'active' : ''}}">

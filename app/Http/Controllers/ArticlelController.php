@@ -12,13 +12,18 @@ use App\Http\Requests\ArticleRequest;
 
 // Import DB Article
 use App\Models\Article;
+use Illuminate\Support\Facades\File;
 
 class ArticlelController extends Controller
 {
     // READ
     public function index()
     {
-        $articles = Article::latest()->get();
+        $seacrh = urldecode(request('search'));
+        if ($seacrh) {
+            $articles = Article::orderBy('id', 'DESC')->where('title', 'like', '%' . $seacrh . '%')->get();
+        } else
+            $articles = Article::latest()->get();
         return view('dashboard.article', compact('articles'));
     }
 
@@ -32,19 +37,15 @@ class ArticlelController extends Controller
     public function store(ArticleRequest $request)
     {
         $data = $request->all();
-
         if ($request->has('img')) {
             $img = $request->file('img');
             $name = time() . '.' . $img->getClientOriginalExtension();
             $img->move(public_path('img_articles'), $name);
-
             $data['img'] = $name;
         }
-
-        $data['slug'] = Str::slug($request->title);
-
+        $data['slug']   = Str::slug($request->title);
+        $data['status'] = 1;
         $request->user()->articles()->create($data);
-
         return redirect('/article')->with('msg', 'Data Artikel Berhasil ditambahkan');
     }
 
@@ -54,11 +55,10 @@ class ArticlelController extends Controller
         return abort('404');
     }
 
-    //
+    // EDIT
     public function edit($slug)
     {
         $article = Article::where('slug', $slug)->first();
-
         return view('dashboard_edit.article_edit', compact('article'));
     }
 
@@ -68,29 +68,52 @@ class ArticlelController extends Controller
         $data = $request->validate([
             'title' => ['required', 'string', 'min:5', 'max:200'],
             'img'   => ['mimes:png,jpg,jpeg'],
-            'description' => ['required']
+            'description' => ['required', 'min:5']
         ]);
-
+        $article = Article::findOrFail($id);
         if ($request->has('img')) {
             $img = $request->file('img');
             $name = time() . '.' . $img->getClientOriginalExtension();
+            if ($article->img != 'default_article.png') {
+                File::delete('img_articles/' . $article->img);
+            }
             $img->move(public_path('img_articles'), $name);
-
             $data['img'] = $name;
         }
-
-        $data['slug'] = Str::slug($request->title);
-
-        Article::findOrFail($id)->update($data);
-
+        if ($article->slug != null) {
+            $data['slug'] = Str::slug($request->title . '-' . time());
+        } else
+            $data['slug'] = Str::slug($request->title);
+        $article->update($data);
         return redirect('/article')->with('msg', 'Data Artikel Berhasil di update');
     }
 
     // DELETE
     public function destroy($id)
     {
+        $article = Article::findOrFail($id);
+        if ($article->img != 'default_article.png') {
+            File::delete('img_articles/' . $article->img);
+        }
         Article::destroy($id);
+        return redirect()->back()->with('msg', 'Data Artikel Berhasil di update');
+    }
 
-        return redirect('/article', ['msg' => 'Data Artikel Berhasil ditambahkan']);
+    // Active
+    public function active(Article $article)
+    {
+        Article::findOrFail($article->id)->update([
+            'status' => 1,
+        ]);
+        return redirect()->back()->with('msg', 'Data Artikel Berhasil diapprove');
+    }
+
+    // Panding
+    public function panding(Article $article)
+    {
+        $article  = Article::findOrFail($article->id);
+        $article->status = 0;
+        $article->save();
+        return redirect()->back()->with('msg', 'Data Artikel Berhasil diunapprove');
     }
 }
