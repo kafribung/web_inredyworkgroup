@@ -24,16 +24,14 @@ class InventoryRequest extends FormRequest
     public function rules()
     {
         return [
-            'title' => ['required', 'string', 'min:3', 'max:200', 'unique:inventories'],
+            'title' => ['required', 'string', 'min:3', 'max:200'],
             'img'   => ['required', 'mimes:png,jpg,jpeg'],
-            'img'   => ['required', 'mimes:png,jpg,jpeg'],
-            'owner' => ['required', 'string', 'min:3', 'max:150'],
+            'code'  => ['string', 'min:3', 'max:10', 'unique:inventories'],
             'owner' => ['required', 'string', 'min:3', 'max:150'],
             'total' => ['required', 'integer'],
             'category' => ['required', 'string'],
-            'category' => ['required', 'string'],
-            'condition'=> ['required', 'string'],
-            'description' => ['required'],
+            'condition' => ['required', 'string'],
+            'description' => ['required', 'min:5'],
         ];
     }
 }

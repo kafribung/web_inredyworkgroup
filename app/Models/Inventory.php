@@ -7,8 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 class Inventory extends Model
 {
     protected $touches = ['user'];
-    protected $guarded = ['created_at', 'updated_at'];
-    
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
     // Relation many to one (User)    
     public function user()
     {
@@ -16,8 +16,8 @@ class Inventory extends Model
     }
 
     // Mutator
-    public function getImgAttribute($value)
+    public function getTakeImgAttribute()
     {
-        return url('img_inventories', $value);
+        return url('img_inventories', $this->img);
     }
 }

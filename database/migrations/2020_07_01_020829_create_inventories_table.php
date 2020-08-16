@@ -15,7 +15,8 @@ class CreateInventoriesTable extends Migration
     {
         Schema::create('inventories', function (Blueprint $table) {
             $table->id();
-            $table->string('title')->unique();
+            $table->string('code')->unique();
+            $table->string('title');
             $table->text('description');
             $table->string('img');
             $table->string('slug');
@@ -23,15 +24,11 @@ class CreateInventoriesTable extends Migration
             $table->tinyInteger('total');
             $table->string('condition');
             $table->string('category');
-
             $table->bigInteger('user_id')->unsigned();
-
             $table->timestamps();
-
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
-
     /**
      * Reverse the migrations.
      *

@@ -8,7 +8,7 @@
     <div class="animated fadeIn">
 
         @if (session('msg'))
-            <p class="alert alert-info">{{session('msg')}}</p>
+        <p class="alert alert-info">{{session('msg')}}</p>
         @endif
 
         <div class="row">
@@ -24,78 +24,107 @@
                                 @method('PUT')
                                 <div class="form-group">
                                     <label for="title" class="control-label mb-1">Nama</label>
-                                    <input id="title" name="title" type="text" class="form-control @error('title') is-invalid @enderror" autofocus  autocomplete="off" value="{{old('title') ? old('title') : $inventory->title}}">
+                                    <input id="title" name="title" type="text"
+                                        class="form-control @error('title') is-invalid @enderror" autofocus
+                                        autocomplete="off" value="{{old('title') ? old('title') : $inventory->title}}">
 
                                     @error('title')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="img" class="control-label mb-1">Gambar</label>
-                                    <img src="{{url($inventory->img)}}" alt="Error" title="Gambar Inventory" width="80" height="80">
-                                    <input id="img" name="img" type="file" class="form-control @error('img') is-invalid @enderror"   accept="image/*">
+                                    <img src="{{url($inventory->takeImg)}}" alt="Error" title="Gambar Inventory"
+                                        height="100">
+                                    <input id="img" name="img" type="file"
+                                        class="form-control @error('img') is-invalid @enderror" accept="image/*">
 
                                     @if ($errors->has('img'))
-                                        <p class="alert alert-danger">{{$errors->first('img')}}</p>
+                                    <p class="alert alert-danger">{{$errors->first('img')}}</p>
                                     @endif
                                 </div>
 
                                 <div class="form-group">
+                                    <label for="code" class="control-label mb-1">Kode Barang</label>
+                                    <input id="code" name="code" type="text"
+                                        class="form-control @error('code') is-invalid @enderror" autofocus
+                                        autocomplete="off" value="{{old('code') ?? $inventory->code}}">
+
+                                    @error('code')
+                                    <p class="alert alert-danger">{{$message}}</p>
+                                    @enderror
+                                </div>
+
+                                <div class="form-group">
                                     <label for="owner" class="control-label mb-1">Nama Penyumbang</label>
-                                    <input id="owner" name="owner" type="text" class="form-control @error('owner') is-invalid @enderror" autofocus  autocomplete="off" value="{{old('owner') ? old('owner') : $inventory->owner}}">
+                                    <input id="owner" name="owner" type="text"
+                                        class="form-control @error('owner') is-invalid @enderror" autofocus
+                                        autocomplete="off" value="{{old('owner') ? old('owner') : $inventory->owner}}">
 
                                     @error('owner')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="total" class="control-label mb-1">Jumlah</label>
-                                    <input id="total" name="total" type="number" class="form-control @error('total') is-invalid @enderror" autofocus  autocomplete="off" value="{{old('total') ? old('total') : $inventory->total}}">
+                                    <input id="total" name="total" type="number"
+                                        class="form-control @error('total') is-invalid @enderror" autofocus
+                                        autocomplete="off" value="{{old('total') ? old('total') : $inventory->total}}">
 
                                     @error('total')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="category" class="control-label mb-1">Kategori</label>
-                                    <select name="category" id="category" class="form-control @error('category') is-invalid @enderror">
+                                    <select name="category" id="category"
+                                        class="form-control @error('category') is-invalid @enderror">
                                         <option selected disabled>~Pilih Kategori~</option>
-                                        <option {{$inventory->category == 'Rumah Tangga' ? 'selected' : ''}} value="Rumah Tangga">Rumah Tangga</option>
-                                        <option {{$inventory->category == 'Logistik' ? 'selected' : ''}} value="Logistik">Logistik</option>
+                                        <option {{$inventory->category == 'Rumah Tangga' ? 'selected' : ''}}
+                                            value="Rumah Tangga">Rumah Tangga</option>
+                                        <option {{$inventory->category == 'Logistik' ? 'selected' : ''}}
+                                            value="Logistik">Logistik</option>
                                     </select>
 
                                     @error('category')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
                                     <label for="condition" class="control-label mb-1">Kondisi</label>
-                                    <select name="condition" id="condition" class="form-control @error('condition') is-invalid @enderror">
+                                    <select name="condition" id="condition"
+                                        class="form-control @error('condition') is-invalid @enderror">
                                         <option selected disabled>~Pilih Kondisi~</option>
-                                        <option {{$inventory->condition == 'Baik' ? 'selected' : ''}} value="Baik">Baik</option>
-                                        <option {{$inventory->condition == 'Rusak' ? 'selected' : ''}} value="Rusak">Rusak</option>
+                                        <option {{$inventory->condition == 'Baik' ? 'selected' : ''}} value="Baik">Baik
+                                        </option>
+                                        <option {{$inventory->condition == 'Rusak' ? 'selected' : ''}} value="Rusak">
+                                            Rusak
+                                        </option>
                                     </select>
 
                                     @error('condition')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
-                                
+
                                 <div class="form-group">
                                     <label for="description" class="control-label mb-1">Deskripsi</label>
-                                    <textarea id="description" name="description" class="form-control ckeditor @error('description') is-invalid @enderror" >{{old('description') ? old('description') : $inventory->description}}</textarea>
+                                    <textarea id="description" name="description"
+                                        class="form-control ckeditor @error('description') is-invalid @enderror">{{old('description') ? old('description') : $inventory->description}}</textarea>
 
                                     @error('description')
-                                        <p class="alert alert-danger">{{$message}}</p>
+                                    <p class="alert alert-danger">{{$message}}</p>
                                     @enderror
                                 </div>
 
                                 <div class="form-group">
-                                    <button type="submit" class="btn btn-md btn-warning btn-block">Edit Inventaris</button>
+                                    <button type="submit" class="btn btn-md btn-warning btn-block">Edit
+                                        Inventaris
+                                    </button>
                                 </div>
                             </form>
                         </div>
@@ -103,13 +132,11 @@
                 </div>
             </div>
         </div>
-
         <!-- /#add-category -->
     </div>
     <!-- .animated -->
 </div>
 <!-- /.content -->
-
 @push('after_script')
 <script src="https://cdn.ckeditor.com/ckeditor5/19.1.1/classic/ckeditor.js"></script>
 <script>
@@ -124,4 +151,3 @@
 </script>
 @endpush
 @endsection
-
