@@ -37,6 +37,9 @@ Route::group(['middleware' => 'admin'], function () {
 
     // Inventaris
     Route::resource('inventory', 'InventoryController');
+
+    // Kegiatan
+    Route::resource('activity', 'ActivityController');
 });
 
 // Email Verivication

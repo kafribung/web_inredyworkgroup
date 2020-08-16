@@ -56,6 +56,12 @@
                 <li class="{{Request::segment(1) == 'inventory' ? 'active' : ''}}">
                     <a href="/inventory"> <i class="menu-icon ti-comments"></i>Data Inventaris</a>
                 </li>
+
+                <li class="menu-title">Kegiatan</li>
+                <!-- /.menu-title -->
+                <li class="{{Request::segment(1) == 'activity' ? 'active' : ''}}">
+                    <a href="/activity"> <i class="menu-icon ti-map-alt"></i>Data Kegiatan</a>
+                </li>
             </ul>
         </div>
         <!-- /.navbar-collapse -->
