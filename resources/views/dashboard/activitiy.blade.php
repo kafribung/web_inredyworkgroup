@@ -64,7 +64,7 @@
                                         <td><b><i>{{$activity->status}}</i></b></td>
                                         <td>{!! Str::limit($activity->description, 10) !!}</td>
                                         <td>
-                                            <a href="/activity/{{$activity->slug}}/edit"
+                                            <a href="/activity/{{$activity->slug}}/img"
                                                 class="btn btn-dark btn-sm m-1"><i class="fa fa-image"></i>
                                             </a>
                                             <a href="/activity/{{$activity->slug}}/edit"

@@ -71,6 +71,12 @@ class User extends Authenticatable
         return $this->hasMany(Activity::class);
     }
 
+    // Relation one to many(Acitivty)
+    public function activity_imgs()
+    {
+        return $this->hasMany(ActivityImg::class);
+    }
+
     // Mutator
     public function getTakeImgAttribute()
     {

@@ -40,9 +40,14 @@ Route::group(['middleware' => 'admin'], function () {
 
     // Kegiatan
     Route::resource('activity', 'ActivityController');
+    Route::get('activity/{activity:slug}/img', 'ActivityImgController@index');
+    Route::get('activity/{activity:slug}/create/img', 'ActivityImgController@create');
+    Route::post('activity/{activity:id}/img', 'ActivityImgController@store');
+    Route::get('activity/{activityImg:id}/edit/img', 'ActivityImgController@edit');
+    Route::put('activity/{activityImg:id}/img', 'ActivityImgController@update');
+    Route::delete('activity/{activityImg:id}/img', 'ActivityImgController@destroy');
 });
 
 // Email Verivication
 Route::get('/verification/{token}/{id}', 'Auth\RegisterController@verification');
-
 Auth::routes();

@@ -14,4 +14,10 @@ class Activity extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    // Relation one to many(Acitivty)
+    public function activity_imgs()
+    {
+        return $this->hasMany(ActivityImg::class);
+    }
 }

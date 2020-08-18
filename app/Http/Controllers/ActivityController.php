@@ -10,7 +10,11 @@ class ActivityController extends Controller
     // READ
     public function index()
     {
-        $activities = Activity::with('user')->latest()->paginate(20);
+        $search = urldecode(request('search'));
+        if ($search)
+            $activities = Activity::with('user')->latest()->where('title', 'like', '%' . $search . '%')->paginate(20);
+        else
+            $activities = Activity::with('user')->latest()->paginate(20);
         return view('dashboard.activitiy', compact('activities'));
     }
 
