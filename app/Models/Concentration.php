@@ -19,4 +19,10 @@ class Concentration extends Model
     {
         return $this->hasMany('App\Models\Creation');
     }
+
+    // Relation one to many (Learning)
+    public function learnings()
+    {
+        return $this->hasMany('App\Models\Learning');
+    }
 }

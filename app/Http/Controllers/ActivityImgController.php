@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Activity;
-use App\Models\ActivityImg;
+use App\Models\{ActivityImg, Activity};
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 
@@ -66,7 +65,7 @@ class ActivityImgController extends Controller
             $img->move(public_path('img_activities'), $name);
             $data['img'] = $name;
         }
-        ActivityImg::findOrFail($activityImg->id)->update($data);
+        $activityImg->update($data);
         return redirect('activity/' . $activityImg->activity->slug . '/img')->with('msg', 'Data Foto Kegiatan Berhasil diedit');
     }
 

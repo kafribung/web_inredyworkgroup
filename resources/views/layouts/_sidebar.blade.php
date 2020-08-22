@@ -50,7 +50,6 @@
                     <a href="/creation/create"> <i class="menu-icon ti-control-play"></i>Tambah Karya</a>
                 </li>
 
-
                 <li class="menu-title">Inventaris</li>
                 <!-- /.menu-title -->
                 <li class="{{Request::segment(1) == 'inventory' ? 'active' : ''}}">
@@ -61,6 +60,12 @@
                 <!-- /.menu-title -->
                 <li class="{{Request::segment(1) == 'activity' ? 'active' : ''}}">
                     <a href="/activity"> <i class="menu-icon ti-map-alt"></i>Data Kegiatan</a>
+                </li>
+
+                <li class="menu-title">Pembelajaran</li>
+                <!-- /.menu-title -->
+                <li class="{{Request::segment(1) == 'learning' ? 'active' : ''}}">
+                    <a href="/learning"> <i class="menu-icon ti-book"></i>Data Pembelajaran</a>
                 </li>
             </ul>
         </div>

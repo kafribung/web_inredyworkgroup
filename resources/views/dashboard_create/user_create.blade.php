@@ -138,7 +138,9 @@
                                     <select id="concentration_id" name="concentration_id"
                                         class="form-control @error('concentration_id') is-invalid @enderror" required>
                                         @foreach ($concentrations as $concentration)
-                                        <option value="{{$concentration->id}}">{{$concentration->concentration}}
+                                        <option {{ old('concentration_id') == $concentration->id ? 'selected' : '' }}
+                                            value="{{$concentration->id}}">
+                                            {{$concentration->concentration}}
                                         </option>
                                         @endforeach
                                     </select>

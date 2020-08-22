@@ -46,6 +46,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('activity/{activityImg:id}/edit/img', 'ActivityImgController@edit');
     Route::put('activity/{activityImg:id}/img', 'ActivityImgController@update');
     Route::delete('activity/{activityImg:id}/img', 'ActivityImgController@destroy');
+
+    // Pembelajaran
+    Route::resource('learning', 'LearningController');
 });
 
 // Email Verivication
